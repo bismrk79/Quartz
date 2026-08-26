@@ -34,3 +34,20 @@ draft: true
 ## 공개 기준
 - 성경 묵상, 신학 연구 → is_public: true 권장
 - 개인 일정, 비즈니스 메모 → draft: true
+
+## 배포 파이프라인
+```
+Obsidian 노트 작성
+      ↓
+Obsidian Git 플러그인 (Ctrl+P → "Git: Commit-and-sync")
+      ↓
+GitHub 저장소 (bismrk79/Quartz)
+      ↓
+GitHub Actions 자동 실행 (deploy.yml)
+      ↓
+bismrk79.github.io/Quartz 자동 배포
+```
+- Vault 자체가 `E:\PL\quartz`이고 `.git`도 그 안에 있음 → Obsidian Git 설정의 **Custom base path는 비워둘 것** (상위 경로로 설정하면 "Can't find a valid git repository" 오류 발생)
+- draft 필터: `quartz.config.yaml`에 `@quartz-community/remove-draft` 활성화됨 → `draft: true` 노트는 자동으로 배포 제외
+- `explicit-publish`는 비활성화 상태 → `is_public` 명시 없어도 기본적으로 공개됨 (draft로만 비공개 제어)
+- 일상 워크플로우: 노트 작성 → `Ctrl+P` → `Git: Commit-and-sync` → 1~2분 후 사이트 자동 반영
